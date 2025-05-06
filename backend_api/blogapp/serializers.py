@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
+from .models import Blog
+
 class UserRegisterationSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
@@ -30,3 +32,20 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         new_user.save()
         
         return new_user
+    
+class SimpleAuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "username", "profile_image"]
+    
+class BlogSerializer(serializers.ModelSerializer):
+    author = SimpleAuthorSerializer(read_only=True)
+    class Meta:
+        model = Blog
+        fields = ["id", "title", "content", "author", "category", "published_at", "is_draft", "featured_image"]
+
+class BlogListSerializer(serializers.ModelSerializer):
+    author = SimpleAuthorSerializer(read_only=True)
+    class Meta:
+        model = Blog
+        fields = ["id", "title", "author", "category", "published_at", "is_draft", "featured_image"]
