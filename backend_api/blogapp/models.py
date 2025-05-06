@@ -7,6 +7,7 @@ from django.conf import settings
 
 class CustomUser(AbstractUser):
     bio = models.TextField(null=True, blank=True)
+    job_title = models.CharField(max_length=100, null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_img', null=True, blank=True)
     facebook = models.URLField(max_length=255, blank=True, null=True)
     twitter = models.URLField(max_length=255, blank=True, null=True)
@@ -19,7 +20,7 @@ class CustomUser(AbstractUser):
 
 class Blog(models.Model):
     
-    CATEGORY = (("Technology", "Technology"), ("Business", "Business"), ("Politics", "Politics"), ("Entertainment", "Entertainment"), ("Economy", "Economy"), ("Lifestyle", "Lifestyle"))
+    CATEGORY = (("Technology", "Technology"), ("Business", "Business"), ("Politics", "Politics"), ("Entertainment", "Entertainment"), ("Economy", "Economy"), ("Lifestyle", "Lifestyle"), ("Web Development", "Web Development"))
     
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
