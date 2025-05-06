@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Blog
-from .serializers import BlogSerializer, BlogListSerializer, UserRegisterationSerializer
+from .serializers import BlogSerializer, BlogListSerializer, UserRegisterationSerializer, UpdateUserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -11,6 +11,21 @@ from rest_framework.permissions import IsAuthenticated
 @api_view(['POST'])
 def registerUser(request):
     serializer = UserRegisterationSerializer(
+        data = request.data
+    )
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request):
+    user = request.user
+    serializer = UpdateUserSerializer(
+        user,
         data = request.data
     )
     
@@ -62,3 +77,16 @@ def updateBlog(request, pk):
         return Response(serializer.data)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteBlog(request, pk):
+    user = request.user
+    blog = Blog.objects.get(id=pk)
+    if blog.author != user:
+        return Response(
+            {"error": "You do not have permission to delete this blog."}, status=status.HTTP_403_FORBIDDEN
+            )
+    
+    blog.delete()
+    return Response({"message": "Blog deleted successfully."}, status=status.HTTP_204_NO_CONTENT)

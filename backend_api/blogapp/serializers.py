@@ -33,6 +33,11 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         
         return new_user
     
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "email", "username", "first_name", "last_name", "bio", "profile_image", "facebook", "twitter", "instagram", "youtube", "github"]
+    
 class SimpleAuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
