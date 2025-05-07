@@ -1,5 +1,13 @@
+import Navbar from "@/components/Navbar"
+import { Outlet } from "react-router"
+
 export const DashboardLayout = () => {
   return (
-    <div>DashboardLayout</div>
+    <>
+        <Navbar />
+        <body>
+            <Outlet />
+        </body>
+    </>
   )
 }

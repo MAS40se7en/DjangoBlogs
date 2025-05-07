@@ -117,4 +117,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .link {
+    @apply bg-foreground text-background font-semibold py-2 rounded-md text-center hover:bg-accent-foreground active:bg-foreground/80 active:outline-4
+  }
 }
