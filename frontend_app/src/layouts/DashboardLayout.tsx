@@ -5,11 +5,10 @@ export const DashboardLayout = () => {
 
     
   return (
-    <div className="dark">
-      <main className="dark:bg-black w-full bg-white">
+    <div>
+      <main className="w-full bg-white dark:bg-[#141624] ">
         <Navbar />
             <Outlet />
-            <h1 className="dark:text-white dark:bg-black">hello</h1>
         </main>
     </div>
   )
