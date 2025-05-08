@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form"
 import { Link } from "react-router"
 import { Input } from "./ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { apiServices } from "@/lib/utils"
 
 
 const RegisterForm = () => {
@@ -25,16 +24,7 @@ const RegisterForm = () => {
 
     async function onSubmit(values: RegisterFormValues) {
         setIsLoading(true)
-
-        try {
-            console.log(values)
-            apiServices.register({values})
-            
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setIsLoading(false)
-        }
+        console.log(values)
     }
     return (
         <Card className="w-[350px]">

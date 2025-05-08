@@ -21,18 +21,7 @@ const LoginForm = () => {
 
     async function onSubmit(values: LoginFormValues) {
         setIsLoading(true)
-
-        try {
-            // Here you would implement your authentication logic
-            console.log(values)
-
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
+        console.log(values)
     }
 
     return (
@@ -51,10 +40,10 @@ const LoginForm = () => {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input 
-                                        className=""
-                                        placeholder="john.doe@example.com" 
-                                        {...field} />
+                                        <Input
+                                            className=""
+                                            placeholder="john.doe@example.com"
+                                            {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
