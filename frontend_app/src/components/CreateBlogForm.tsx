@@ -58,9 +58,9 @@ const CreateBlogForm = () => {
     }
 
     return (
-        <Card className="w-[350px]">
+        <Card className="w-full">
             <CardHeader>
-                <CardTitle className="text-2xl">Create a Blog post</CardTitle>
+                <CardTitle className="text-2xl font-bold">Create a Blog post</CardTitle>
                 <CardDescription>
                     Create a new blog post and share with the world
                 </CardDescription>
@@ -91,7 +91,7 @@ const CreateBlogForm = () => {
                                 <FormItem>
                                     <FormLabel>Content</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder="Blog Content" {...field} />
+                                        <Textarea placeholder="Blog Content" className="min-h-[200px]" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

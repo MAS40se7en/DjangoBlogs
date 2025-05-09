@@ -3,26 +3,58 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Link } from "react-router"
+import { Link, useLocation, useNavigate } from "react-router"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { getUsername, signin } from "@/services/apiBlog"
+import { toast } from "react-toastify"
 
-const LoginForm = () => {
+const LoginForm = ({
+    setIsAuthenticated,
+    setUsername,
+}: {
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+    setUsername: React.Dispatch<React.SetStateAction<string>>
+}) => {
     const [isLoading, setIsLoading] = useState(false)
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            email: "",
+            username: "",
             password: "",
         },
     })
 
+    const mutation = useMutation({
+        mutationFn: (values: LoginFormValues) => signin(values),
+        onSuccess: (response) => {
+            localStorage.setItem("access", response.access)
+            localStorage.setItem("refresh", response.refresh)
+            setIsAuthenticated(true)
+            
+            getUsername().then(res => setUsername(res.username))
+            toast.success("Login successful!")
+
+            const from = location?.state?.from?.pathname || "/";
+            navigate(from, { replace: true });
+        },
+        onError: (err) => {
+            toast.error(err.message)
+        }
+    })
+
     async function onSubmit(values: LoginFormValues) {
         setIsLoading(true)
-        console.log(values)
+        
+        mutation.mutate(values)
     }
+
+
 
     return (
         <Card className="w-[350px]">
@@ -35,14 +67,14 @@ const LoginForm = () => {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="email"
+                            name="username"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>Username</FormLabel>
                                     <FormControl>
                                         <Input
                                             className=""
-                                            placeholder="john.doe@example.com"
+                                            placeholder="JohnDoe"
                                             {...field} />
                                     </FormControl>
                                     <FormMessage />

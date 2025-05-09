@@ -2,7 +2,9 @@ import CreateBlogForm from "@/components/CreateBlogForm"
 
 const CreateBlog = () => {
   return (
-    <CreateBlogForm />
+    <div className="py-10">
+      <CreateBlogForm />
+    </div>
   )
 }
 

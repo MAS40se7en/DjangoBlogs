@@ -1,5 +1,6 @@
 import api from "@/lib/api";
-import type { BlogFormValues, RegisterFormValues } from "@/lib/Schema";
+import type { BlogFormValues, LoginFormValues, RegisterFormValues } from "@/lib/Schema";
+import type { Userdata } from "@/lib/types";
 import { isAxiosError } from "axios";
 
 export async function getBlogs(page: number) {
@@ -26,6 +27,22 @@ export async function getBlog(slug: string) {
     }
 }
 
+export async function signin(data: LoginFormValues) {
+    try {
+        const response = await api.post(`token/`, data)
+        return response.data
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to login")
+        }
+        if (isAxiosError(error) && error.response?.status === 401) {
+            throw new Error("Invalid credentials")
+        }
+        throw new Error('Failed to login')
+    }
+}
+
 export async function registerUser(data: RegisterFormValues) {
     try {
         const response = await api.post(`api/register/`, data)
@@ -49,5 +66,70 @@ export async function createBlog(data: BlogFormValues) {
             throw new Error("Failed to create blog")
         }
         throw new Error('Failed to create blog')
+    }
+}
+
+export async function updateBlog(data: BlogFormValues, id: number) {
+    try {
+        const response = await api.put(`api/update_blog/${id}`, data)
+        return response.data
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to update blog")
+        }
+        throw new Error('Failed to update blog')
+    }
+}
+
+export async function deleteBlog(id: number) {
+    try {
+        const response = await api.delete(`api/delete_blog/${id}`)
+        return response.data
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to delete blog")
+        }
+        throw new Error('Failed to delete blog')
+    }
+}
+
+export async function getUsername() {
+    try {
+        const response = await api.get(`api/get_username/`);
+        return response.data;
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to create blog")
+        }
+        throw new Error('Failed to create blog')
+    }
+}
+
+export async function getUserInfo(username: string) {
+    try {
+        const response = await api.get(`api/get_userinfo/${username}`);
+        return response.data;
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to create blog")
+        }
+        throw new Error('Failed to create blog')
+    }
+}
+
+export async function updateProfile(data: Userdata) {
+    try {
+        const response = await api.put(`api/update_profile/`, data)
+        return response.data
+    } catch (error) {
+        console.error(error)
+        if (isAxiosError(error) && error.response?.status === 400) {
+            throw new Error("Failed to update profile")
+        }
+        throw new Error('Failed to update profile')
     }
 }

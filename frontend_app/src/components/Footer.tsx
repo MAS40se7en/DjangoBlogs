@@ -6,15 +6,15 @@ import { CiMail } from "react-icons/ci";
 
 const Footer = () => {
     return (
-        <footer className="bg-[#F6F6F7] padding-x py-16 max-container dark:bg-[#141624]">
+        <footer className="bg-[#F6F6F7] padding-x py-16 max-container dark:bg-[#141624] px-10">
             <div className="flex max-lg:gap-9 lg:gap-4 flex-wrap max-md:justify-center justify-between">
                 <div className="w-[300px] flex flex-col gap-6 max-md:items-center">
                     <h1 className="text-[#141624] text-2xl dark:text-[#FFFFFF] ">
-                        DevScribe
+                        DjangoBlogs
                     </h1>
 
                     <p className="text-[14px] text-[#696A75] leading-[1.5]  max-md:text-center dark:text-[#97989F]">
-                        DevScribe is a user-friendly Content Management System (CMS) that
+                        DjangoBlogs is a user-friendly Content Management System (CMS) that
                         allows easy content creation and management. Built with React.js,
                         Tailwind CSS, and Django, it offers features like user
                         authentication and customizable light/dark themes.
