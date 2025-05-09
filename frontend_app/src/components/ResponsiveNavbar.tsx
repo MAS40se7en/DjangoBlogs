@@ -7,7 +7,7 @@ const ResponsiveNavBar = () => {
                 <>
                     <li>
                         <NavLink
-                            to="/signin"
+                            to="/auth/login"
                             className={({ isActive }) => (isActive ? "active" : "")}
                         >
                             Login
@@ -16,7 +16,7 @@ const ResponsiveNavBar = () => {
 
                     <li>
                         <NavLink
-                            to="/signup"
+                            to="/auth/register"
                             className={({ isActive }) => (isActive ? "active" : "")}
                         >
                             Register

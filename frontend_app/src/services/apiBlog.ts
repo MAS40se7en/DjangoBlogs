@@ -10,3 +10,16 @@ export async function getBlogs(page: number) {
         throw new Error('Failed to fetch blogs')
     }
 }
+
+export async function getBlog(slug: string) {
+    try {
+        console.log(slug)
+        const response = await api.get(`api/blogs/${slug}`)
+        console.log(response)
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+        throw new Error('Failed to fetch blog')
+    }
+}

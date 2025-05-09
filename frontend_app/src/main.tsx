@@ -33,11 +33,12 @@ ReactDOM.createRoot(root!).render(
 
         <Route path='dashboard' element={<DashboardLayout />}>
           <Route path='' element={<Dashboard />} />
-          <Route path='blog/:id' element={<Blog />} />
+          <Route path='blogs/:slug' element={<Blog />} />
           <Route path='myBlogs' element={<UserBlogs />} />
           <Route path='createBlog' element={<CreateBlog />} />
           <Route path='updateBlog/:id' element={<UpdateBlog />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='profile/:id' element={<Profile />} />
           <Route path='updateProfile' element={<UpdateProfile />} />
           <Route path='blogger/:id' element={<Blogger />} />
         </Route>

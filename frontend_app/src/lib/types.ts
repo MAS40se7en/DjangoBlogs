@@ -6,10 +6,13 @@ export interface Blog {
     published_at: string;
     is_draft: boolean;
     featured_image: string;
+    slug: string;
 }
 
 export interface Author {
     id: number;
     username: string;
+    first_name: string;
+    last_name: string;
     profile_image: string;
 }

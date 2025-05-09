@@ -2,20 +2,50 @@ import { Icon } from "@iconify/react"
 import ToggleDarkMode from "./ui/ToggleDarkMode"
 import { useState } from "react";
 import ResponsiveNavBar from "./ResponsiveNavbar";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
   const [showNavBar, setShowNavBar] = useState(false);
+  const isAuthenticated = false;
+  const username = "John Doe";
+  const logout = () => {
+    console.log("logout")
+
+  }
+
   return (
     <>
       <nav className="max-container padding-x py-6 flex justify-between items-center gap-6 sticky top-0 z-10 bg-white dark:bg-[#141624] pl-10 pr-4">
-        <a href="/" className="text-[#141624] text-2xl dark:text-[#FFFFFF]">
-          LOGO
-        </a>
+        <NavLink to="/dashboard" className="text-[#141624] text-2xl dark:text-[#FFFFFF]">
+          <span className="text-3xl font-bold">DJANGO<span className="font-extrabold">BLOGS</span></span>
+        </NavLink>
         <ul className="flex items-center justify-end gap-9 text-[#383C4A] lg:flex-1 max-md:hidden dark:text-[#FFFFFF]">
-          <li>Hi, Clinton</li>
-          <li>Logout</li>
-          <li>Login</li>
-          <li>Register</li>
+          {isAuthenticated ? (
+            <>
+              <li>Hi, {username}</li>
+              <li onClick={logout} className="cursor-pointer">Logout</li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  to="/auth/login"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  Login
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/auth/register"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  Register
+                </NavLink>
+              </li>
+            </>
+          )}
           <li className="font-semibold">Create post</li>
         </ul>
         <ToggleDarkMode />

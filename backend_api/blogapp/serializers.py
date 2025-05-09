@@ -52,7 +52,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 class SimpleAuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["id", "username", "profile_image"]
+        fields = ["id", "username", "profile_image", "first_name", "last_name"]
     
 class BlogSerializer(serializers.ModelSerializer):
     author = SimpleAuthorSerializer(read_only=True)
@@ -64,4 +64,4 @@ class BlogListSerializer(serializers.ModelSerializer):
     author = SimpleAuthorSerializer(read_only=True)
     class Meta:
         model = Blog
-        fields = ["id", "title", "author", "category", "published_at", "is_draft", "featured_image"]
+        fields = ["id", "title", "author", "category", "published_at", "is_draft", "featured_image", "slug"]
