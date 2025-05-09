@@ -1,5 +1,9 @@
+import CreateBlogForm from "@/components/CreateBlogForm"
+
 const CreateBlog = () => {
-  return <div>CreateBlog</div>
+  return (
+    <CreateBlogForm />
+  )
 }
 
 export default CreateBlog

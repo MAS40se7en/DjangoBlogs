@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form"
 import { Link } from "react-router"
 import { Input } from "./ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { registerUser } from "@/services/apiBlog"
+import { toast } from "react-toastify"
 
 
 const RegisterForm = () => {
@@ -15,17 +18,44 @@ const RegisterForm = () => {
     const form = useForm<RegisterFormValues>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
-            name: "",
+            username: "",
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
             confirmPassword: "",
         },
     })
 
-    async function onSubmit(values: RegisterFormValues) {
+    const {
+        reset
+    } = form
+
+    const mutation = useMutation({
+        mutationFn: (values: RegisterFormValues) => registerUser(values),
+        onSuccess: () => {
+            toast.success("User registered successfully!")
+            reset()
+        },
+        onError: (error) => {
+            toast.error(error.message)
+        }
+    })
+
+    function onSubmit(values: RegisterFormValues) {
         setIsLoading(true)
-        console.log(values)
+        
+        try {
+            mutation.mutate(values)
+        }
+        catch (error) {
+            console.error(error)
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
+
     return (
         <Card className="w-[350px]">
             <CardHeader>
@@ -37,12 +67,40 @@ const RegisterForm = () => {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="name"
+                            name="username"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Username</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="John Doe" {...field} />
+                                        <Input 
+                                        placeholder="JohnDoe" 
+                                        {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="first_name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>First name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="John" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="last_name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Last name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Doe" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -68,7 +126,7 @@ const RegisterForm = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="password" {...field} />
+                                        <Input type="password" placeholder="password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -81,7 +139,7 @@ const RegisterForm = () => {
                                 <FormItem>
                                     <FormLabel>Confirm Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="confirm password" {...field} />
+                                        <Input type="password" placeholder="confirm password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

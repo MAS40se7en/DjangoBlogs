@@ -16,3 +16,12 @@ export interface Author {
     last_name: string;
     profile_image: string;
 }
+
+export interface Userdata {
+    username: string,
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+}

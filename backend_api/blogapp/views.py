@@ -18,11 +18,19 @@ def registerUser(request):
     serializer = UserRegisterationSerializer(
         data = request.data
     )
-    
+
     if serializer.is_valid():
+        
+        if (
+            get_user_model()
+            .objects.filter(email=serializer.validated_data['email'])
+            .first()
+        ):
+            return Response({"error": "User with this email already exists."}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer.save()
         return Response(serializer.data)
-    
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])

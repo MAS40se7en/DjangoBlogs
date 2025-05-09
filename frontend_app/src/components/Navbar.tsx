@@ -10,7 +10,6 @@ const Navbar = () => {
   const username = "John Doe";
   const logout = () => {
     console.log("logout")
-
   }
 
   return (
@@ -46,7 +45,11 @@ const Navbar = () => {
               </li>
             </>
           )}
-          <li className="font-semibold">Create post</li>
+          <li className="font-semibold">
+            <NavLink to='/dashboard/createBlog'>
+              Create post
+            </NavLink>
+          </li>
         </ul>
         <ToggleDarkMode />
         <Icon icon="icon-park:hamburger-button" className="text-black md:hidden block w-10 h-10" onClick={() => setShowNavBar((curr) => !curr)} />
