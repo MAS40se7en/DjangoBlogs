@@ -1,6 +1,6 @@
 const config = {
     api: {
-        baseUrl: import.meta.env.VITE_LOCAL_API_URL
+        baseUrl: import.meta.env.VITE_API_URL
     }
 }
 
