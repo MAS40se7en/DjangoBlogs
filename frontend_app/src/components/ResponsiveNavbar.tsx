@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router'
+import ToggleDarkMode from './ui/ToggleDarkMode'
 
 const ResponsiveNavBar = () => {
     return (
@@ -26,13 +27,15 @@ const ResponsiveNavBar = () => {
 
                 <li className="font-semibold">
                     <NavLink
-                        to="/create"
+                        to="/dashboard/create"
                         className={({ isActive }) => (isActive ? "active" : "")}
                     >
                         Create Post
                     </NavLink>
                 </li>
-
+                <li className="flex items-center gap-3 border rounded-full p-2">
+                    Theme <ToggleDarkMode />
+                </li>
 
 
 

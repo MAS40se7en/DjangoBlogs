@@ -95,22 +95,9 @@ export async function deleteBlog(id: number) {
     }
 }
 
-export async function getUsername() {
-    try {
-        const response = await api.get(`api/get_username/`);
-        return response.data;
-    } catch (error) {
-        console.error(error)
-        if (isAxiosError(error) && error.response?.status === 400) {
-            throw new Error("Failed to create blog")
-        }
-        throw new Error('Failed to create blog')
-    }
-}
-
 export async function getUserInfo(username: string) {
     try {
-        const response = await api.get(`api/get_userinfo/${username}`);
+        const response = await api.get(`api/get_userinfo/${username}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error(error)
@@ -123,7 +110,7 @@ export async function getUserInfo(username: string) {
 
 export async function updateProfile(data: Userdata) {
     try {
-        const response = await api.put(`api/update_profile/`, data)
+        const response = await api.put(`api/update_profile/`, data, { withCredentials: true })
         return response.data
     } catch (error) {
         console.error(error)

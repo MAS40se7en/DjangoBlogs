@@ -4,14 +4,11 @@ import { useState } from "react";
 import ResponsiveNavBar from "./ResponsiveNavbar";
 import { NavLink } from "react-router";
 
-const Navbar = ({
-  isAuthenticated,
-  username,
-}: {
-  isAuthenticated: boolean,
-  username: string,
-}) => {
+const Navbar = () => {
   const [showNavBar, setShowNavBar] = useState(false);
+  const isAuthenticated = false;
+  const username = "John Doe";
+  
   const logout = () => {
     console.log("logout")
   }
@@ -50,12 +47,12 @@ const Navbar = ({
             </>
           )}
           <li className="font-semibold">
-            <NavLink to='/dashboard/createBlog'>
+            <NavLink to='/dashboard/create'>
               Create post
             </NavLink>
           </li>
+          <li className="flex items-center gap-3 border rounded-full p-2">Theme <ToggleDarkMode /></li>
         </ul>
-        <ToggleDarkMode />
         <Icon icon="icon-park:hamburger-button" className="text-black md:hidden block w-10 h-10" onClick={() => setShowNavBar((curr) => !curr)} />
       </nav>
 

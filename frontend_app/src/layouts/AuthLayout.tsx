@@ -1,13 +1,8 @@
-import { Navigate, Outlet } from "react-router"
+import { Outlet } from "react-router"
 import { ToastContainer } from "react-toastify"
 
-export const AuthLayout = ({
-  isAuthenticated,
-} : { isAuthenticated: boolean }) => {
-
-  if (isAuthenticated) {
-    Navigate({to:"/dashboard"})
-  }
+export const AuthLayout = () => {
+  
   return (
     <div className="flex items-center justify-center w-full h-screen gap-5">
         <ToastContainer />

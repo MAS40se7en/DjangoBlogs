@@ -1,5 +1,4 @@
 import { loginSchema, type LoginFormValues } from "@/lib/Schema"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
@@ -8,17 +7,10 @@ import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import { getUsername, signin } from "@/services/apiBlog"
+import { signin } from "@/services/apiBlog"
 import { toast } from "react-toastify"
 
-const LoginForm = ({
-    setIsAuthenticated,
-    setUsername,
-}: {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-    setUsername: React.Dispatch<React.SetStateAction<string>>
-}) => {
-    const [isLoading, setIsLoading] = useState(false)
+const LoginForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -35,9 +27,7 @@ const LoginForm = ({
         onSuccess: (response) => {
             localStorage.setItem("access", response.access)
             localStorage.setItem("refresh", response.refresh)
-            setIsAuthenticated(true)
             
-            getUsername().then(res => setUsername(res.username))
             toast.success("Login successful!")
 
             const from = location?.state?.from?.pathname || "/";
@@ -49,8 +39,6 @@ const LoginForm = ({
     })
 
     async function onSubmit(values: LoginFormValues) {
-        setIsLoading(true)
-        
         mutation.mutate(values)
     }
 
@@ -99,8 +87,8 @@ const LoginForm = ({
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="w-full" disabled={isLoading}>
-                            {isLoading ? "Logging in..." : "Login"}
+                        <Button type="submit" className="w-full" disabled={mutation.isPending}>
+                            {mutation.isPending ? "Logging in..." : "Login"}
                         </Button>
                     </form>
                 </Form>

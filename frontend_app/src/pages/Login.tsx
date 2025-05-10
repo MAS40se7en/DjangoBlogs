@@ -1,15 +1,9 @@
 import LoginForm from "@/components/LoginForm"
 
-const Login = ({
-  setUsername,
-  setIsAuthenticated
-}: {
-  setUsername: React.Dispatch<React.SetStateAction<string>>,
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+const Login = () => {
   return (
     <>
-        <LoginForm setUsername={setUsername} setIsAuthenticated={setIsAuthenticated} />
+        <LoginForm />
     </>
   )
 }
