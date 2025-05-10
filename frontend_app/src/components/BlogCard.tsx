@@ -15,7 +15,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
                 <Badge >{blog.category}</Badge>
 
                 <CardTitle>
-                    <Link to={`/dashboard/blogs/${blog.slug}`}>{blog.title}</Link>
+                    <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
                 </CardTitle>
             </CardHeader>
             <CardContent>

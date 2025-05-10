@@ -13,6 +13,7 @@ import UpdateProfile from "./pages/UpdateProfile"
 import Blogger from "./pages/Blogger"
 import ProtectedRoutes from "./components/ProtectedRoutes"
 import AppLayout from "./layouts/AppLayout"
+import NotFound from "./pages/NotFound"
 
 const App = () => {
 
@@ -23,15 +24,16 @@ const App = () => {
                 path="/" 
                 element={<AppLayout 
                 />} >
-
                 <Route path='auth' element={<AuthLayout />}>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
+                    <Route path='*' element={<NotFound />} />
                 </Route>
 
                 <Route
-                    path='dashboard'
+                    path=''
                     element={<DashboardLayout/>}>
+                    <Route path='*' element={<NotFound />} />
                     <Route path='' element={<Dashboard />} />
                     <Route path='blogs/:slug' element={<Blog />} />
                     <Route path='myBlogs' element={<UserBlogs />} />

@@ -27,7 +27,7 @@ const ResponsiveNavBar = () => {
 
                 <li className="font-semibold">
                     <NavLink
-                        to="/dashboard/create"
+                        to="/create"
                         className={({ isActive }) => (isActive ? "active" : "")}
                     >
                         Create Post
